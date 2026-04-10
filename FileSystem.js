@@ -1,7 +1,6 @@
 // FS - File System
 
 
-const { log } = require('console');
 const fs=require('fs')
 
 // Create A File   --> mkdir
@@ -25,15 +24,16 @@ const fs=require('fs')
 
 // Writen A file
 
-//     fs.writeFile('./docs/sample.text','hello everyone',(err)=>{
-//     if(err){
-//         console.log(err.message);
+    fs.writeFile('./docs/sample.text','hello everyones',(err)=>{
+    if(err){
+        console.log(err.message);
 
-//     }
-//     else{
-//         console.log("file is writen");
-//     }
-// })
+
+    }
+    else{
+        console.log("file is writen");
+    }
+})
 
 
 // Read A file
