@@ -1,5 +1,6 @@
  const http=require('http');
  const fs=require('fs');
+ const _=require('lodash');
 
  const Server=http.createServer((req,res)=>{
     console.log('Server Responded');
@@ -50,4 +51,5 @@
 
  Server.listen(3000,'localhost',()=>{
     console.log("Server Active");
+    console.log(_.random(10,20)); 
  })

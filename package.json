@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.1.1",
+  "description": "this is backend source code ",
+  "main": "Data.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bharath532/Learn-Basics-to-Advance-in-NodeJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bharath532/Learn-Basics-to-Advance-in-NodeJS/issues"
+  },
+  "homepage": "https://github.com/bharath532/Learn-Basics-to-Advance-in-NodeJS#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "lodash": "^4.18.1"
+  }
+}

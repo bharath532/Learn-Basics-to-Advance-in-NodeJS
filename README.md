@@ -14,3 +14,14 @@
 * File Delete Operation
 * Checking File Existence (existsSync)
 
+
+# 🚀 Day 3 – Node.js Server & HTTP Basics
+
+
+## 📚 Topics Covered
+
+* Creating a Server in Node.js
+* Handling GET Requests
+* Sending Response with HTML
+
+
