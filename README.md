@@ -25,3 +25,11 @@
 * Sending Response with HTML
 
 
+# 🚀 Day 14 – Express.js Basics
+
+## 📚 Topics Covered
+
+* Introduction to Express.js
+* Creating Server using Express
+* Handling GET Requests
+
