@@ -25,15 +25,9 @@
 * Sending Response with HTML
 
 
-# 🚀 Day 4 – Express.js Basics
 
-## 📚 Topics Covered
 
-* Introduction to Express.js
-* Creating Server using Express
-* Handling GET Requests
-
-# 🚀 Day 5 – Node.js Streams & Buffers
+# 🚀 Day 4 – Node.js Streams & Buffers
 
 ## 📚 Topics Covered
 
@@ -41,3 +35,22 @@
 * Buffers
 * Handling Large File Loading
 
+
+# 🚀 Day 5 – Express.js Basics
+
+## 📚 Topics Covered
+
+* Introduction to Express.js
+* Creating Server using Express
+* Handling GET Requests
+
+
+# 🚀 Day 6 – API Params & Query Filtering
+
+
+## 📚 Topics Covered
+
+* Route Parameters (User ID in URL)
+* Filtering Data by ID
+* Query Parameters
+* Product Filtering using Query
