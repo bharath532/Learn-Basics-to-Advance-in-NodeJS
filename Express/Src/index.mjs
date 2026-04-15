@@ -91,5 +91,8 @@ App.get('/products',(req,res)=>{
     }
     else{
         return res.send(products)
+        console.log(products);
+        
     }
 })
+
