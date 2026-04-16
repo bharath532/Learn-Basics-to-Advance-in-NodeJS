@@ -8,10 +8,7 @@ const App = express();
 const Port = 3000;
 
 
-App.listen(Port,()=>{
-    console.log(`App is run on ${Port}`);
-    
-});
+
 
 const Users=[
     {id:1,user_name:"Alan"},
@@ -30,6 +27,8 @@ const products=[
     {id:4,p_name:"Fruits"},
     {id:5,p_name:"TOOLS"}
 ]
+
+// GET
 App.get('/',(req,res)=>{
     res.send({msg:"root"})
 })
@@ -96,3 +95,39 @@ App.get('/products',(req,res)=>{
     }
 })
 
+
+// POST
+App.use(express.json())
+
+App.post('/users',(req,res)=>{
+    console.log(req.body);
+    const {body}=req;
+    const Newuser={id:Users[Users.length-1].id+1,...body}
+    Users.push(Newuser)
+    res.status(201).send(Newuser)    
+})
+
+
+// PUT
+
+App.put('/users/:id',(req,res)=>{
+    const id=parseInt(req.params.id);
+    
+    if(isNaN(id)){
+        res.send('USer ID Not Valid')
+    }
+
+    const userindex=Users.findIndex(user=>user.id===id)
+    if(userindex===-1){
+        return res.send({msg:"User Not Found"})
+    }
+
+    const {body}=req;
+    Users[userindex]={id: id, ...body}
+    return res.status(200).send({msg:"User Updated"})
+})
+
+App.listen(Port,()=>{
+    console.log(`App is run on ${Port}`);
+    
+});

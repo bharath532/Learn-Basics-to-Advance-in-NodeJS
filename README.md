@@ -54,3 +54,14 @@
 * Filtering Data by ID
 * Query Parameters
 * Product Filtering using Query
+
+# 🚀 Day 7 – Express POST & PUT Requests
+
+
+## 📚 Topics Covered
+
+* Handling POST Requests in Express
+* Handling PUT Requests in Express
+* Testing APIs using Postman
+
+
