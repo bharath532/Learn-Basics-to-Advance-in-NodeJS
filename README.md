@@ -50,6 +50,7 @@
 
 ## 📚 Topics Covered
 
+
 * Route Parameters (User ID in URL)
 * Filtering Data by ID
 * Query Parameters
@@ -63,5 +64,16 @@
 * Handling POST Requests in Express
 * Handling PUT Requests in Express
 * Testing APIs using Postman
+
+
+# 🚀 Day 18 – Express PATCH & DELETE Requests
+
+
+## 📚 Topics Covered
+
+* Handling PATCH Requests in Express
+* Handling DELETE Requests in Express
+* Completing CRUD Operations
+
 
 

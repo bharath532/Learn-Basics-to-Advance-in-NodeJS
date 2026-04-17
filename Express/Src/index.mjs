@@ -8,8 +8,6 @@ const App = express();
 const Port = 3000;
 
 
-
-
 const Users=[
     {id:1,user_name:"Alan"},
     {id:2,user_name:"John"},
@@ -125,6 +123,46 @@ App.put('/users/:id',(req,res)=>{
     const {body}=req;
     Users[userindex]={id: id, ...body}
     return res.status(200).send({msg:"User Updated"})
+})
+
+// PATCH 
+
+App.patch('/users/:id',(req,res)=>{
+    const id=parseInt( req.params.id);
+    if(isNaN(id)){
+        res.send("Invaild ID")
+    }
+
+    const userindex=Users.findIndex(user=>user.id===id)
+
+    if(userindex===-1){
+        res.send("User Not Found")
+    }
+
+    const{body}=req;
+
+    Users[userindex]={...Users[userindex],...body};
+    res.status(200).send("User Patched")
+
+})
+
+
+// DELETE 
+App.delete('/users/:id',(req,res)=>{
+    const id=parseInt(req.params.id);
+
+    if(isNaN(id)){
+        res.send({msg:"Invaild Id"})
+    }
+    const userindex=Users.findIndex(user=>user.id===id)
+
+    if(userindex ===-1){
+        res.send("User Not FOUND")
+    }
+
+    Users.splice(userindex,1)
+    return res.send("User Deleted")
+    
 })
 
 App.listen(Port,()=>{
