@@ -2,7 +2,8 @@
 
 // Browser --> Request --> Server(Middleware) --> Response --> Browser
 import express from 'express';
-
+import { CreateSchema } from './Utils/CreateSchema.mjs';
+import{matchedData,checkSchema,validationResult}from 'express-validator'
 const App = express();
 
 const Port = 3000;
@@ -25,6 +26,25 @@ const products=[
     {id:4,p_name:"Fruits"},
     {id:5,p_name:"TOOLS"}
 ]
+
+const GetUserindex=(req,res,next)=>{
+    const id=parseInt(req.params.id)
+
+    if(isNaN(id)){
+        res.send("Invail User")
+    }
+
+    const userIndex=Users.findIndex(user=>user.id===id)
+    if(userIndex===-1){
+        res.send("User Not Found")
+    }
+    req.userIndex=userIndex;
+    next();
+}
+
+
+
+
 
 // GET
 App.get('/',(req,res)=>{
@@ -97,10 +117,18 @@ App.get('/products',(req,res)=>{
 // POST
 App.use(express.json())
 
-App.post('/users',(req,res)=>{
-    console.log(req.body);
-    const {body}=req;
-    const Newuser={id:Users[Users.length-1].id+1,...body}
+App.post('/users',
+    checkSchema(CreateSchema),
+    (req,res)=>{
+
+        const result=validationResult(req);
+        // console.log(result);
+        if(!result.isEmpty()){
+            return res.status(404).send({error:result.array()})
+        }
+        
+    const body=matchedData(req);
+    const Newuser={id:Users[Users.length-1].id+1, ...body}
     Users.push(Newuser)
     res.status(201).send(Newuser)    
 })
@@ -108,59 +136,31 @@ App.post('/users',(req,res)=>{
 
 // PUT
 
-App.put('/users/:id',(req,res)=>{
-    const id=parseInt(req.params.id);
-    
-    if(isNaN(id)){
-        res.send('USer ID Not Valid')
-    }
-
-    const userindex=Users.findIndex(user=>user.id===id)
-    if(userindex===-1){
-        return res.send({msg:"User Not Found"})
-    }
-
+App.put('/users/:id',GetUserindex,(req,res)=>{
+    const userIndex=req.userIndex;
     const {body}=req;
-    Users[userindex]={id: id, ...body}
+    Users[userIndex]={id: id, ...body}
     return res.status(200).send({msg:"User Updated"})
 })
 
 // PATCH 
 
-App.patch('/users/:id',(req,res)=>{
-    const id=parseInt( req.params.id);
-    if(isNaN(id)){
-        res.send("Invaild ID")
-    }
-
-    const userindex=Users.findIndex(user=>user.id===id)
-
-    if(userindex===-1){
-        res.send("User Not Found")
-    }
-
+App.patch('/users/:id',GetUserindex,(req,res)=>{
+    
+    const userIndex=req.userIndex;
     const{body}=req;
 
-    Users[userindex]={...Users[userindex],...body};
+    Users[userIndex]={...Users[userIndex],...body};
     res.status(200).send("User Patched")
 
 })
 
 
 // DELETE 
-App.delete('/users/:id',(req,res)=>{
-    const id=parseInt(req.params.id);
-
-    if(isNaN(id)){
-        res.send({msg:"Invaild Id"})
-    }
-    const userindex=Users.findIndex(user=>user.id===id)
-
-    if(userindex ===-1){
-        res.send("User Not FOUND")
-    }
-
-    Users.splice(userindex,1)
+App.delete('/users/:id',GetUserindex,(req,res)=>{
+    const userIndex=req.userIndex;
+    console.log(userIndex);
+    Users.splice(userIndex,1);
     return res.send("User Deleted")
     
 })

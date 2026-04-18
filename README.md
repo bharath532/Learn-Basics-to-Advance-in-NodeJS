@@ -66,7 +66,7 @@
 * Testing APIs using Postman
 
 
-# 🚀 Day 18 – Express PATCH & DELETE Requests
+# 🚀 Day 8 – Express PATCH & DELETE Requests
 
 
 ## 📚 Topics Covered
