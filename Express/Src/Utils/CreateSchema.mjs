@@ -19,9 +19,6 @@ export const CreateSchema={
         notEmpty:{
             errorMessage:"AGE is Must Added"
         },
-        isLength:{
-            options:{min:2 ,max:3},
-            errorMessage:"Maxinum 3 Number"
-        }
+       
     }
 }

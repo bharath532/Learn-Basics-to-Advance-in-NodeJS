@@ -2,49 +2,13 @@
 
 // Browser --> Request --> Server(Middleware) --> Response --> Browser
 import express from 'express';
-import { CreateSchema } from './Utils/CreateSchema.mjs';
-import{matchedData,checkSchema,validationResult}from 'express-validator'
+import Routes from './Routes/Routes.mjs'
 const App = express();
 
 const Port = 3000;
 
-
-const Users=[
-    {id:1,user_name:"Alan"},
-    {id:2,user_name:"John"},
-    {id:3,user_name:"Finch"},
-    {id:4,user_name:"Andrew"},
-    {id:5,user_name:"HulK"},
-    {id:6,user_name:"Iron Man"}
-]
-
-
-const products=[
-    {id:1,p_name:"Phone"},
-    {id:2,p_name:"Grosery"},
-    {id:3,p_name:"Dress"},
-    {id:4,p_name:"Fruits"},
-    {id:5,p_name:"TOOLS"}
-]
-
-const GetUserindex=(req,res,next)=>{
-    const id=parseInt(req.params.id)
-
-    if(isNaN(id)){
-        res.send("Invail User")
-    }
-
-    const userIndex=Users.findIndex(user=>user.id===id)
-    if(userIndex===-1){
-        res.send("User Not Found")
-    }
-    req.userIndex=userIndex;
-    next();
-}
-
-
-
-
+App.use(Routes);
+App.use(express.json())
 
 // GET
 App.get('/',(req,res)=>{
@@ -52,118 +16,6 @@ App.get('/',(req,res)=>{
 })
 
 
-App.get('/users',(req,res)=>{
-    const {query:{filter , value}} = req;
-
-    if(filter && value){
-        return   res.send(Users.filter((user)=>user[filter].toLowerCase().includes(value)))
-    }
-
-    res.send(Users) 
-      
-})
-
-App.get('/users/:id',(req,res)=>{
-    const id=parseInt( req.params.id);
-
-    if(isNaN(id)){
-        return res.status(400).send({msg:"Invaild Id"})
-    }
-     const user=Users.find(user=>user.id===id)
-
-     if(user){
-        return res.send(user)
-     }
-     else{
-        return res.statusCode(404).send({msg:"User Not Found"})
-     }
-    
-    
-})
-
-App.get('/products/:id',(req,res)=>{
-    const id=parseInt(req.params.id)
-    if(isNaN(id)){
-     return  res.send({msg:"Product Id invalid"})
-    }
-
-    const user=product.find(user=>user.id===id)
-
-    if(user){
-        console.log(user.p_name);
-      return  res.send(user)
-      
-    }
-    else{
-       return  res.send({msg:"Product Not Avaiable"})
-    }
-    
-     
-})
-
-App.get('/products',(req,res)=>{
-    const {query:filter,value}=req;
-    if(filter && value){
-        return res.send(products.filter((product)=>product[filter].toLowerCase().includes(value)))
-    }
-    else{
-        return res.send(products)
-        console.log(products);
-        
-    }
-})
-
-
-// POST
-App.use(express.json())
-
-App.post('/users',
-    checkSchema(CreateSchema),
-    (req,res)=>{
-
-        const result=validationResult(req);
-        // console.log(result);
-        if(!result.isEmpty()){
-            return res.status(404).send({error:result.array()})
-        }
-        
-    const body=matchedData(req);
-    const Newuser={id:Users[Users.length-1].id+1, ...body}
-    Users.push(Newuser)
-    res.status(201).send(Newuser)    
-})
-
-
-// PUT
-
-App.put('/users/:id',GetUserindex,(req,res)=>{
-    const userIndex=req.userIndex;
-    const {body}=req;
-    Users[userIndex]={id: id, ...body}
-    return res.status(200).send({msg:"User Updated"})
-})
-
-// PATCH 
-
-App.patch('/users/:id',GetUserindex,(req,res)=>{
-    
-    const userIndex=req.userIndex;
-    const{body}=req;
-
-    Users[userIndex]={...Users[userIndex],...body};
-    res.status(200).send("User Patched")
-
-})
-
-
-// DELETE 
-App.delete('/users/:id',GetUserindex,(req,res)=>{
-    const userIndex=req.userIndex;
-    console.log(userIndex);
-    Users.splice(userIndex,1);
-    return res.send("User Deleted")
-    
-})
 
 App.listen(Port,()=>{
     console.log(`App is run on ${Port}`);

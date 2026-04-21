@@ -76,4 +76,16 @@
 * Completing CRUD Operations
 
 
+# 🚀 Day 9 – Express Routing & Middleware
+
+
+## 📚 Topics Covered
+
+* Creating Separate Route Files
+* User Routes
+* Product Routes
+* Middleware in Express
+
+
+
 
