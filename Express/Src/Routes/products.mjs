@@ -6,11 +6,15 @@ const router =Router();
 
 
 router.get('/products',(req,res)=>{
+
+    req.session.visited=true;
+    console.log(req.session.id);
+
     const {query:filter,value}=req;
     if(filter && value){
         return res.send(products.filter((product)=>product[filter].toLowerCase().includes(value)))
     }
-    
+
      return res.send(products)
     
 })

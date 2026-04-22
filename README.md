@@ -87,5 +87,13 @@
 * Middleware in Express
 
 
+# 🚀 Day 10 – Cookies & Sessions
+
+
+## 📚 Topics Covered
+
+* Cookies in Web Applications
+* Sessions in Express
+* Managing User State
 
 

@@ -9,13 +9,22 @@ const router=Router();
 
 
 router.get("/users",(req,res)=>{
-    const {query:filter,value}=req;
+
+    if(req.signedCookies.name && req.signedCookies.name==="ALAN" ){
+        const {query:filter,value}=req;
 
     if(filter&&value){
-        res.send(users.find((user)=>user[filter].toLowercase().includes(value)))
+       return res.send(users.find((user)=>user[filter].toLowercase().includes(value)))
     }
 
-    res.send(users);
+    return res.send(users);
+    
+    }
+
+    else{
+        return res.send({msg:"your not Alan and also your not right to acces the page"})
+    }
+    
 
 })
 
