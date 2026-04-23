@@ -35,6 +35,7 @@ App.get('/',(req,res)=>{
         else{
             console.log(sessiondata);
         }
+        
     })
     res.send({msg:"root"})
 })

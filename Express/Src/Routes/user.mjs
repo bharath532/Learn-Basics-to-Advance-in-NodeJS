@@ -6,8 +6,6 @@ import{matchedData,checkSchema,validationResult}from 'express-validator'
 
 const router=Router();
 
-
-
 router.get("/users",(req,res)=>{
 
     if(req.signedCookies.name && req.signedCookies.name==="ALAN" ){
@@ -25,7 +23,6 @@ router.get("/users",(req,res)=>{
         return res.send({msg:"your not Alan and also your not right to acces the page"})
     }
     
-
 })
 
 router.get('/users/:id',(req,res)=>{
@@ -42,7 +39,6 @@ router.get('/users/:id',(req,res)=>{
      else{
         return res.statusCode(404).send({msg:"User Not Found"})
      }
-    
     
 })
 
