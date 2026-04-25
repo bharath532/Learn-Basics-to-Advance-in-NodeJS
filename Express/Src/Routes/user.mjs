@@ -1,8 +1,10 @@
-import { Router } from "express";
+import e, { Router } from "express";
 import{users} from '../Utils/constants.mjs'
 import { GetUserindex } from "../Utils/middlewares.mjs";
 import { CreateSchema } from '../Utils/CreateSchema.mjs';
 import{matchedData,checkSchema,validationResult}from 'express-validator'
+// import { createCheckSchema } from "express-validator/lib/middlewares/schema";
+import { User } from "../mongoDB/user.mjs";
 
 const router=Router();
 
@@ -45,20 +47,38 @@ router.get('/users/:id',(req,res)=>{
 // POST
 
 
-router.post('/users',
-    checkSchema(CreateSchema),
-    (req,res)=>{
+// router.post('/users',
+//     checkSchema(CreateSchema),
+//     (req,res)=>{
 
-        const result=validationResult(req);
-        // console.log(result);
-        if(!result.isEmpty()){
-            return res.status(404).send({error:result.array()})
-        }
+//         const result=validationResult(req);
+//         // console.log(result);
+//         if(!result.isEmpty()){
+//             return res.status(404).send({error:result.array()})
+//         }
         
-    const body=matchedData(req);
-    const Newuser={id:users[users.length-1].id+1, ...body}
-    users.push(Newuser)
-    res.status(201).send(Newuser)    
+//     const body=matchedData(req);
+//     const Newuser={id:users[users.length-1].id+1, ...body}
+//     users.push(Newuser)
+//     res.status(201).send(Newuser)    
+// })
+
+router.post('/users',
+   checkSchema(CreateSchema),
+   async (req,res)=>{
+    const result=validationResult(req)
+    if(!result.isEmpty()){
+        return res.status(404).send({error:result.array()})
+    }
+    const body =matchedData(req);
+    const newuser =new User(body);
+    try{
+        const saveuser=await newuser.save();
+        return res.send(saveuser)
+    }
+    catch(err){
+        console.log(err.message);
+    }
 })
 
 //Put  -->UPDATED

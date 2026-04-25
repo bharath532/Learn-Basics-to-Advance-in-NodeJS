@@ -8,12 +8,20 @@ import session from 'express-session';
 import {Strategy as Localstrategy} from 'passport-local';
 import passport from "passport";
 import { users } from './Utils/constants.mjs';
+import mongoose from 'mongoose';
+import { User } from './mongoDB/user.mjs';
 const App = express();
 
 const Port = 3000;
 
 App.use(express.json());
 App.use(cookieparser("Bharath"));
+
+mongoose.connect('mongodb://localhost/Express')
+.then(()=>{console.log("DB Connected")})
+.catch((err)=>console.log("Not Connected"))
+
+
 App.use(session(
     {
         secret:"secert session",
@@ -29,26 +37,38 @@ App.use(passport.session());
 
 passport.use( new Localstrategy(
     {usernameField:"user_name",passwordField:"password"}
-    ,(user_name,password,done)=>{
-    const user=users.find((user)=>user_name==user_name);
-    if(!user){
+    ,async(user_name,password,done)=>{
+        try{
+        const user= await User.findOne({user_name:user_name})
+         if(!user){
         return done(null, false,{message:"invalid username"});
     }
 
-    if(user.password!==password){
+    if(user.password !== password){
         return done(null ,false,{message:"incorrect password"})
     }
-    return done(null,user)
+    return done(null, user)
+    }
+    catch(err){
+        console.log(err);
+    }
+    return done(err,false)
 }))
 
 passport.serializeUser((user, done)=>{
     done(null,user.id)
 })
 
-passport.deserializeUser((id, done)=>{
-    const user =users.find((u)=>u.id==id)
-
-    done(null,user||false);
+passport.deserializeUser(async(id, done)=>{
+    try{
+        const user = await User.findById({id})
+         done(null,user);
+    }
+    catch(err){
+        console.log(err);
+        done(err,false)
+    }
+    
 })
 
 App.use(Routes);

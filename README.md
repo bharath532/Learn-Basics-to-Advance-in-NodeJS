@@ -1,4 +1,4 @@
-# 🚀 Day 1 – Node.js Basics
+<!-- # 🚀 Day 1 – Node.js Basics
 
 * Introduction to Node.js
 * Modules in Node.js
@@ -96,4 +96,4 @@
 * Sessions in Express
 * Managing User State
 
-
+ -->
