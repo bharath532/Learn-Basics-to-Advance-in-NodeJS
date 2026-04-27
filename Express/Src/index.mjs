@@ -10,6 +10,7 @@ import passport from "passport";
 import { users } from './Utils/constants.mjs';
 import mongoose from 'mongoose';
 import { User } from './mongoDB/user.mjs';
+import { comparepassword } from './Utils/Helper.mjs';
 const App = express();
 
 const Port = 3000;
@@ -44,7 +45,7 @@ passport.use( new Localstrategy(
         return done(null, false,{message:"invalid username"});
     }
 
-    if(user.password !== password){
+    if(comparepassword(password , user.password)){
         return done(null ,false,{message:"incorrect password"})
     }
     return done(null, user)

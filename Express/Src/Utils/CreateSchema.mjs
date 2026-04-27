@@ -20,11 +20,6 @@ export const CreateSchema={
             errorMessage:"password is Must Added"
         },
        
-    },
-    age:{
-        notEmpty:{
-            errorMessage:"age is Must Added"
-        },
-       
     }
+  
 }

@@ -10,11 +10,8 @@ const UserSchema=new mongoose.Schema({
     password:{
         type: mongoose.Schema.Types.String,
         required: true,
-    },
-    age:{
-        type:mongoose.Schema.Types.Number,
-        required: true,
     }
+    
 
 })
 

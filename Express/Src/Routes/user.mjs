@@ -5,6 +5,7 @@ import { CreateSchema } from '../Utils/CreateSchema.mjs';
 import{matchedData,checkSchema,validationResult}from 'express-validator'
 // import { createCheckSchema } from "express-validator/lib/middlewares/schema";
 import { User } from "../mongoDB/user.mjs";
+import { haspassword } from "../Utils/Helper.mjs";
 
 const router=Router();
 
@@ -71,6 +72,7 @@ router.post('/users',
         return res.status(404).send({error:result.array()})
     }
     const body =matchedData(req);
+    body.password= await haspassword(body.password)
     const newuser =new User(body);
     try{
         const saveuser=await newuser.save();
