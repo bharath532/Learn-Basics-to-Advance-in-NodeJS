@@ -16,7 +16,8 @@ router.get('/products',(req,res)=>{
     }
 
      return res.send(products)
-    
+     console.log(products);
+     
 })
 router.get('/products/:id',(req,res)=>{
     const id=parseInt(req.params.id)
