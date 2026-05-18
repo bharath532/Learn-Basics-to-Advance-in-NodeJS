@@ -7,7 +7,7 @@ export  const users=[
     {id:6,user_name:"Iron Man",password:"2345"}
 ]
 
-
+//  this is the products data which is used to store the products data in the server and we can fetch the data from the server using the get method and we can also send the data to the server using the post method and we can also update the data in the server using the put method and we can also delete the data from the server using the delete method
 export const products=[
     {id:1,p_name:"Phone"},
     {id:2,p_name:"Grosery"},

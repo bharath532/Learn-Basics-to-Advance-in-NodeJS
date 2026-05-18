@@ -4,7 +4,7 @@ import { products } from '../Utils/constants.mjs';
 const router =Router();
 
 
-
+// get is used to fetch the data from the server and post is used to send the data to the server and put is used to update the data in the server and delete is used to delete the data from the server
 router.get('/products',(req,res)=>{
 
     req.session.visited=true;
@@ -38,7 +38,6 @@ router.get('/products/:id',(req,res)=>{
     
      
 })
-
 
 
 
