@@ -17,7 +17,7 @@ const Port = 3000;
 
 App.use(express.json());
 App.use(cookieparser("Bharath"));
-
+// connect to mongodb using mongoose and we are using the local mongodb and we are using the Express database and we are using the mongoose connect method to connect to the mongodb and we are using the then method to log the message "DB Connected" if the connection is successful and we are using the catch method to log the error message if the connection is not successful
 mongoose.connect('mongodb://localhost/Express')
 .then(()=>{console.log("DB Connected")})
 .catch((err)=>console.log("Not Connected"))
@@ -35,7 +35,7 @@ App.use(session(
 ))
 App.use(passport.initialize());
 App.use(passport.session());
-
+// we are using the local strategy for authentication and we are using the username and password for authentication and we are using the user_name and password fields for authentication and we are using the comparepassword function to compare the plain password with the hashed password and return true if the passwords match and false if they don't match and we can use this function to compare the password before sending it to the server and we can also use this function to compare the password before updating it in the server and we can also use this function to compare the password before deleting it from the server
 passport.use( new Localstrategy(
     {usernameField:"user_name",passwordField:"password"}
     ,async(user_name,password,done)=>{
@@ -55,7 +55,7 @@ passport.use( new Localstrategy(
     }
     return done(err,false)
 }))
-
+// passport serializeUser and deserializeUser methods are used to serialize the user object and store it in the session and deserialize the user object from the session and we are using the user id to serialize and deserialize the user object and we are using the User model to find the user by id and return the user object if found and return false if not found and we can use this method to serialize the user object before sending it to the server and we can also use this method to deserialize the user object before updating it in the server and we can also use this method to deserialize the user object before deleting it from the server
 passport.serializeUser((user, done)=>{
     done(null,user.id)
 })
@@ -73,7 +73,7 @@ passport.deserializeUser(async(id, done)=>{
 })
 
 App.use(Routes);
-
+// get in node js is used to get the data from the server and we are using the root route to get the data from the server and we are using the res.send method to send the data to the client and we are using the res.cookie method to set the cookie in the browser and we are using the req.sessionStore.get method to get the session data from the session store and we are logging the session data in the console and we are sending the response to the client with a message "root"
 // GET
 App.get('/',(req,res)=>{
 
